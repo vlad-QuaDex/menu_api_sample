@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 
 import psycopg2
 
-# Connection to database
+# Create DB connection engine
 db_connect = create_engine('postgresql+psycopg2://user:password@hostname/database_name')
 
 app = Flask(__name__)
@@ -26,7 +26,7 @@ class Resto_Menu(Resource):
         # Execute DB query
         query = conn.execute("select * from restaurant where RestaurantId =%d "  %int(restaurant_id))
 
-        result = {'data': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]}
+        result = {'menu': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]}
 
         # Render template with variable menu that contains JSON representation of DB query
         
